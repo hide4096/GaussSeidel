@@ -9,6 +9,8 @@ int **arr = NULL;
 double *x = NULL;
 double *bx = NULL;
 
+
+//まとめて解放する
 int allfree(int n){
     for(int i=0;i<n;i++){
         free(arr[i]);
@@ -21,7 +23,6 @@ int allfree(int n){
 int main(){
     int n;
     
-
     //係数行列のサイズを入力
     scanf("%d",&n);
     if(n <= 0) return 1;
