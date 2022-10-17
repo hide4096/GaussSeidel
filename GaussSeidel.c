@@ -111,14 +111,14 @@ int main(){
     }
 
     //収束の確認と計算
-    if(isDiverge(arr,n)) printf("[warn]This matrix will diverge.\r\n");
+    if(isDiverge(arr,n)) printf("[Warn]This matrix will diverge.\r\n");
     int cnt = GaussSeidel(arr,n,bx,x);
 
     //結果を出力
     if(cnt < 0){
-        if(cnt == -1) printf("[fail]This matrix diverged.\r\n");
-        else if(cnt == -2) printf("[fail]Couldn't solve in %d Loop.\r\n",LOOP_ABORT);
-        else printf("[fail]Unknown error.\r\n");
+        if(cnt == -1)       printf("[Fail]This matrix diverged.\r\n");
+        else if(cnt == -2)  printf("[Fail]Couldn't solve in %d Loop.\r\n",LOOP_ABORT);
+        else                printf("[Fail]Unknown error.\r\n");
     }else{
         printf("[ OK ]finished\r\n");
         printf("\r\nLoop:%d\r\n",cnt);
