@@ -78,8 +78,7 @@ int main(){
     double* bx = NULL;
     
     //係数行列のサイズを入力
-    scanf("%d",&n);
-    if(n <= 0) return 1;
+    if(scanf("%d",&n) < 0) return 1;
 
     //解のメモリを確保
     x = (double*)malloc(sizeof(double)*n);
@@ -107,7 +106,7 @@ int main(){
     
     //行列に係数を代入
     for(int i=0;i<(n+1)*n;i++){
-        scanf("%d",&arr[i/(n+1)][i%(n+1)]);
+        if(scanf("%d",&arr[i/(n+1)][i%(n+1)]) < 0) return -1;
     }
 
     //収束の確認と計算
