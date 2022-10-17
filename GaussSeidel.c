@@ -5,9 +5,9 @@
 #define MINIMAL_DIFF 0.000000000001
 #define LOOP_ABORT 1000000
 
-int **arr = NULL;
-double *x = NULL;
-double *bx = NULL;
+int** arr = NULL;
+double* x = NULL;
+double* bx = NULL;
 
 
 //まとめて解放する
@@ -18,6 +18,19 @@ int allfree(int n){
     free(arr);
     free(bx);
     free(x);
+}
+
+//発散するか確認（対角優位性の計算）
+int isDiverge(int** arr,int n){
+    for(int i=0;i<n;i++){
+        int ii = abs(arr[i][i]);
+        int ij = 0;
+        for(int j=0;j<n;j++){
+            if(i!=j) ij+=abs(arr[i][j]);
+        }
+        if(ii < ij) return 1;
+    }
+    return 0;
 }
 
 int main(){
@@ -56,17 +69,21 @@ int main(){
         scanf("%d",&arr[i%(n+1)][i/(n+1)]);
     }
 
+    if(isDiverge(arr,n)) printf("This matrix will diverge.");
+
     //ガウスザイデル法で計算
     int cnt = 0;
     int isDeverged = 0;
     while(!isDeverged){
         
+    #ifdef PRINTCSV
         //CSV形式で経過を吐く
         printf("%d,",cnt);
         for(int i=0;i<n;i++){
       	    printf("%.10f,",x[i]);
         }
         printf("\n");
+    #endif
 
         //各行で計算する
         for(int j=0;j<n;j++){
