@@ -21,7 +21,7 @@ int isDiverge(int** arr,int n){
         int ii = abs(arr[i][i]);
         int ij = 0;
         for(int j=0;j<n;j++){
-            if(i!=j) ij+=abs(arr[j][i]);
+            if(i!=j) ij+=abs(arr[i][j]);
         }
         if(ii < ij) return 1;
     }
@@ -46,9 +46,9 @@ int GaussSeidel(int** arr,int n,double* bx,double* x){
 
         //各行で計算する
         for(int j=0;j<n;j++){
-            double tmp = (double)arr[n][j];
+            double tmp = (double)arr[j][n];
             for(int k=0;k<n;k++){
-                if(k!=j) tmp-=(double)arr[k][j]*x[k];
+                if(k!=j) tmp-=(double)arr[j][k]*x[k];
             }
             bx[j] = x[j];
             x[j]=tmp/(double)arr[j][j];
@@ -92,13 +92,13 @@ int main(){
     for(int i=0;i<n;i++) x[i] = 1.0;    //初期値は1.0固定
     
     //行列のメモリを確保
-    arr = (int**)malloc(sizeof(int*)*(n+1));
+    arr = (int**)malloc(sizeof(int*)*n);
     if(arr == NULL){
         allfree(arr,n,x,bx);
         return 1;
     }
-    for(int i=0;i<n+1;i++){
-        arr[i] = (int*)malloc(sizeof(int)*n);
+    for(int i=0;i<n;i++){
+        arr[i] = (int*)malloc(sizeof(int)*(n+1));
         if(arr[i] == NULL){
             allfree(arr,n,x,bx);
             return 1;
@@ -107,7 +107,7 @@ int main(){
     
     //行列に係数を代入
     for(int i=0;i<(n+1)*n;i++){
-        scanf("%d",&arr[i%(n+1)][i/(n+1)]);
+        scanf("%d",&arr[i/(n+1)][i%(n+1)]);
     }
 
     //収束の確認と計算
@@ -127,5 +127,6 @@ int main(){
         }
     }
 
+    //解放
     allfree(arr,n,x,bx);
 }
